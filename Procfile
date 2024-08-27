@@ -1,1 +1,1 @@
-web: gunicorn appconfig.wsgi
+web: gunicorn accountability_app.wsgi
