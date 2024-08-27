@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{ profile.username }}'s daily coding challenge</h2>  <!-- Display Profile Owner's Name -->
+
+  {% if form %}
+    <form method="post">
+      {% csrf_token %}
+      <p><b>⚠ NOTE  : If you did'nt practice today, just click on the submit button, else fill in the form below </b></p>
+      {{ form.as_p }} <!-- Render the form fields -->
+      <button type="submit">Submit</button>
+    </form>
+  {% else %}
+    <p>You have already submitted the form today. Please come back after 24 hours.</p>
+  {% endif %}
+{% endblock %}

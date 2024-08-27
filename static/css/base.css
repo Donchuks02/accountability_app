@@ -1,0 +1,57 @@
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+/* NAV BAR SECTION */
+
+.logo h2 {
+    text-decoration: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    background-color: #021526;
+    color: #e2e2b6;
+}
+
+.header-links {
+    display: flex;
+    align-content: center;
+    margin-top: 1.5rem;
+}
+
+a {
+    color: #e2e2b6;
+    text-decoration: none;
+}
+
+a+a {
+    margin-left: 2rem;
+}
+
+
+/* HERO SECTION */
+
+.hero-section {
+    padding: 3rem 0;
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+}
+
+.hero-text p {
+    font-style: italic;
+    font-size: 2rem;
+}
+
+.hero-text p a {
+    background-color: #021526;
+    padding: .5rem;
+    font-size: 1rem;
+    color: #e2e2b6;
+    border-radius: .5rem;
+}

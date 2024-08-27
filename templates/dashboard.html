@@ -1,0 +1,55 @@
+{% comment %} {% extends "base.html" %} {% endcomment %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{user.username}} Dashboard{% endblock title %}
+  </title>
+     <link rel="stylesheet" href="{% static 'css/profiles.css' %}">
+</head>
+<body>
+
+  {% block content %}
+  {% if user.is_authenticated %}
+  <h1>Accountability Buddies 🤝</h1>
+  <div class="dashboard-heading">
+  <h2>Welcome to your Dashboard {{ user.username }}</h2>
+  <form method="POST" action="{% url 'logout' %}">{% csrf_token %}
+      <button type="submit">Log out</button>
+    </form>
+  </div>
+  {% if winner %}
+    <h2>Congratulations, {{ winner.username }} You are the winner ! 🎉✨🎊</h2>
+  {% endif %}
+
+    <a href="{% url 'create_profile' %}">Create Profile + </a>
+
+  <h3>Profiles under this account</h3>
+  <ul>
+    {% for profile in profiles %}
+      <li>
+        <a href="{% url 'daily_coding' profile.id %}">{{ profile.username }}</a> | <progress value="{{ profile.progress }}" max="100">{{ profile.progress }}%% </progress><br>
+        {{ profile.bio }}<br><br><br>
+       <p><a href="{% url 'profile_delete' profile.pk %}" class="btn btn-danger">Delete Profile</a></p>
+        {% if profile.completed %}
+         ✔
+        {% endif %}
+      </li>
+    {% empty %}
+      <li>You have not created any profiles yet.</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>You are not logged in.</p>
+  <a href="{% url 'login' %}">Log in</a>
+  {% endif %}
+
+
+  {% endblock content %}
+
+</body>
+</html>
+
+

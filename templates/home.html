@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+<div class="hero-section">
+
+  <div class="hero-text">
+    <h1>Stay Accountable, Achieve More</h1>
+      <p>Join a community of developers committed to daily progress and continuous improvement.</p>
+
+      <p><a href="http://">Sign Up</a>  <a href="{% url 'login' %}">Log in</a></p>
+  </div>
+
+</div>
+
+<div class="about-app">
+<h3>What is the Developer Accountability App?"</h3>
+<p>"Our app is designed to help developers track their daily activities, share progress with peers, and stay accountable to their goals. Inspired by a dynamic WhatsApp group experience, we provide a platform that fosters collaboration and motivation among developers."</p>
+</div>
+{% endblock %}

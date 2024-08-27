@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Accountability Buddies{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <h2><a href="{% url 'home' %}">Accountability Buddies 🤝</a> </h2>
+    </div>
+    <div class="header-links">
+      <a href="{% url 'signup' %}">Sign Up </a>
+      <a href="{% url 'login' %}">Log in</a>
+    </div>
+  </header>
+
+  {% block content %}
+
+  {% endblock content %}
+
+</body>
+</html>
