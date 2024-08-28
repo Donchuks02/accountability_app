@@ -1,1 +1,1 @@
-web: gunicorn accountability_app.wsgi
+web: gunicorn appconfig.wsgi --log-file -

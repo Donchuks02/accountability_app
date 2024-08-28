@@ -26,7 +26,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = os.environ('SECRET_KEY')
 
 
 
@@ -92,9 +92,11 @@ WSGI_APPLICATION = 'appconfig.wsgi.application'
 
 
 DATABASES = {
-    'default': env.db(),
+    'default': dj_database_url.config(
+        default='postgres://postgres:donchuks02@localhost:5432/accountabilityApp',
+        conn_max_age=600
+    )
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -129,9 +131,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = 'static/'
 
+STATIC_URL = 'static/'
+if not DEBUG:
+  STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+  STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
