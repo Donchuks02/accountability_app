@@ -8,6 +8,6 @@ db.sqlite3
 .DS_Store
 
 # Python specific
-env/
+.env/
 .venv/
 *.log
