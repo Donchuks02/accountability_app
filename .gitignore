@@ -2,8 +2,6 @@
 *.pyc
 __pycache__/
 db.sqlite3
-db.json
-media/
 .env
 
 # OS generated files

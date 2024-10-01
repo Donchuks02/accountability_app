@@ -11,33 +11,29 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-import dj_database_url
-import environ
-import os
+from environs import Env
 
-from dotenv import load_dotenv
+env = Env()
+env.read_env()
 
-load_dotenv()
-
-env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = env.str('SECRET_KEY')
 
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = ['accountability-app-3.onrender.com','127.0.0.1','localhost' ]
+ALLOWED_HOSTS = ['127.0.0.1','localhost' ]
 
 
 # Application definition
@@ -48,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    "whitenoise.runserver_nostatic",
     'django.contrib.staticfiles',
 
     #local app
@@ -92,19 +89,9 @@ WSGI_APPLICATION = 'appconfig.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
-
-
-
 DATABASES = {
-         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-             'NAME': os.getenv('DB_NAME'),
-             'USER': os.getenv('DB_USER'),
-             'PASSWORD': os.getenv('DB_PASSWORD'),
-             'HOST': os.getenv('DB_HOST'),
-             'PORT': os.getenv('DB_PORT'),
-     }
-     }
+  "default": env.dj_db_url("DATABASE_URL")
+}
 
 
 # Password validation
@@ -143,9 +130,8 @@ USE_TZ = True
 
 
 STATIC_URL = 'static/'
-if not DEBUG:
-  STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-  STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
