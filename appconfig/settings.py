@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from environs import Env
+import dj_database_url
 
 env = Env()
 env.read_env()
@@ -89,8 +90,17 @@ WSGI_APPLICATION = 'appconfig.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
-DATABASES = {
-  "default": env.dj_db_url("DATABASE_URL")
+if not DEBUG: # The code block above is equivalent to DEBUG = False
+    DATABASES = {
+	"default": dj_database_url.parse(env.str("DATABASE_URL"))
+}
+
+else:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 
